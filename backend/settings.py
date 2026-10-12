@@ -9,11 +9,16 @@ https://docs.djangoproject.com/en/6.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+import dj_database_url
+from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Define la ruta base del proyecto (déjala SOLO UNA VEZ)
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Carga explícitamente el archivo .env ubicado en la raíz del proyecto
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -76,14 +81,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'conferencia_db',       # Nombre de la BD creada
-        'USER': 'postgres',                # Tu usuario de PostgreSQL
-        'PASSWORD': '1206',        # Tu contraseña de PostgreSQL
-        'HOST': 'localhost',               # O la URL si usas Supabase
-        'PORT': '5432',                    # Puerto por defecto de Postgres
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL', 'postgresql://postgres.hsmwvtyfrfzlcflthsqk:Jaiver092200@aws-0-us-east-1.pooler.supabase.com:6543/postgres'),
+        conn_max_age=600,
+        ssl_require=True  # Conexión SSL requerida por Supabase
+    )
 }
 
 
