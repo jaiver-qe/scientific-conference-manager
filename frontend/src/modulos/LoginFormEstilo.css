@@ -1,0 +1,81 @@
+/* Estos atributos son para la la ventana general. */
+.ventana-de-login{
+    height: 400px; /* Alto de la ventana */
+    max-width: 380px; /* Le da un ANCHO maximo controlado para que no se extienda demasiadom en pantallas grandes */
+    margin: 60px auto; /* El valor 60px le da margen arriba y abajo, mientras que auto lo centra horizontalmente en pantalla */
+    padding: 32px;
+    border: 4px solid #2e2e42;
+    border-radius: 12px;
+    background-color: #1e1e2e;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 10); /* Agrega sombra para dar profundidad*/
+}
+
+/* Damos un poco de estilo a titulos y mensajes */
+/* Iniciar sesion */
+.ventana-de-login h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #f1f5f9;
+    font-size: 22px;
+}
+
+.mensaje-login{
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 30px;
+    color: #f87171;
+}
+
+/* Vamos a agrupar los campos de texto, ordenamos verticalmente las etiquetas label y las cajas input */
+
+.form-group{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; /* Alinea la etiqueta arriba y el campo de texto abajo de forma limpia usando Flexbox */
+}
+
+.form-group label{
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+.form-group input{
+    padding: 12px;
+    background-color: #2a2a3d;
+    border: 1px solid #3f3f5a;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #ffffff;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+/* Efecto cuando el usuario da click */
+
+.form-group input:focus{ /* Cambia el color del borde azul cuando el usuario tiene seleccionado esa caja de texto */
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+/* Boton */
+
+.boton-login{
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #6366f1;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer; /* Muestra la manito cuando pasas el puntero sobre el boton*/
+    transition: background-color 0.2s ease;
+}
+
+.boton-login:hover{ /* Oscurece ligeramente el azul al pasar el raton para dar retroalimentacion visual */
+    background-color: #4f46e5;
+}
