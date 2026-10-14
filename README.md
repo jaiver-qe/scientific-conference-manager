@@ -23,7 +23,7 @@ scientific-conference-manager/
 └── .env                 # Tus variables de entorno (NO se sube al repositorio)
 ```
 
-> **Importante:** `manage.py`, `requirements.txt` y el archivo `.env` están en la **carpeta raíz** del proyecto, no dentro de `backend/`. Todos los comandos de Django se ejecutan desde la raíz.
+> **Importante:** `manage.py`, `requirements.txt` y el archivo `.env` están en la **carpeta raíz** del proyecto.
 
 ## 🚀 Instalación y configuración
 
