@@ -14,12 +14,11 @@ from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
 
-# Define la ruta base del proyecto (déjala SOLO UNA VEZ)
+# Define la ruta base del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Carga explícitamente el archivo .env ubicado en la raíz del proyecto
+# Carga la variable de entorno desde el .env
 load_dotenv(os.path.join(BASE_DIR, '.env'))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
@@ -82,7 +81,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL', 'postgresql://postgres.hsmwvtyfrfzlcflthsqk:Jaiver092200@aws-0-us-east-1.pooler.supabase.com:6543/postgres'),
+        default=os.environ.get('DATABASE_URL'),
         conn_max_age=600,
         ssl_require=True  # Conexión SSL requerida por Supabase
     )
