@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from rest_framework_simplejwt.views import(
+from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
@@ -25,5 +25,5 @@ urlpatterns = [
     #Endpoints para inicio de sesion
     path('admin/', admin.site.urls),
     path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenObtainPairView.as_view(), name='token_refresh'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

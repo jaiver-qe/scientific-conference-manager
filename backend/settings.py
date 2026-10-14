@@ -23,13 +23,14 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)n=%h68993y&4e4tg&86$7%s5wl7f32_!#8qdx0^ot+)&9$o4o'
+# La clave secreta es obligatoria: si falta en el .env, Django no arranca
+SECRET_KEY = os.environ['SECRET_KEY'] # Lanza un error claro, si falta la variable.
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Por seguridad, DEBUG es False a menos que el .env diga explícitamente True
+DEBUG = os.environ.get('DEBUG', 'FALSE').lower() == 'true'
 
-ALLOWED_HOSTS = []
+# Lista de hosts permitidos, separados por coma en el .env
+ALLOWED_HOSTS = [h.strip() for h in os.environ.get('ALLOWED_HOSTS', '').split(',') if h.strip()]
 
 
 # Application definition
