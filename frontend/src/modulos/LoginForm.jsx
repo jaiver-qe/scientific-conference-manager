@@ -36,30 +36,30 @@ export const LoginForm = () => { // Exporta el componente para poder importarlo 
             const datos = await respuestaServidor.json();
 
             if(respuestaServidor.ok){
-                
-                // Leemos el JSON cuando la respuesta fue exitosa
-                const datos = await respuestaServidor.json();
 
-                localStorage.setItem('accesToken', datos.access); // Guarda los tokens devueltos por la API de Django en el localStorage del navegador para mantener la sesion iniciada.
+                localStorage.setItem('accessToken', datos.access); // Guarda los tokens devueltos por la API de Django en el localStorage del navegador para mantener la sesion iniciada.
                 localStorage.setItem('refreshToken', datos.refresh);
+
                 setMensaje('¡Inicio de sesion exitoso!');
 
                 //Update
 
             } else if (respuestaServidor.status === 401 ){
                 // Django recibe la peticion pero las credenciales no son validas
-                setMensaje('Error: ¡Usuario y contraseña, incorrectos!'); 
+                setMensaje('Error: ¡Usuario o contraseña, incorrectos!'); 
             } else if (respuestaServidor.status >= 500){
                 // 5xx: fallo interno del servidor.
                 setMensaje('Error del servidor. Intenta nuevamente.')
             } else {
                 // Peticion no valida.
+                //datos.detail || 'No se pudo iniciar sesión.'
                 setMensaje('No se pudo iniciar sesión. Revisa los datos ingresados.')
             }
 
             //endUpdate
         } catch (err){
-            setMensaje('¡Error de conexión con el servidor backend!')
+            //console.err('Error al conectar con el backend: ', err)
+            setMensaje('¡Error de conexión con el servidor backend! Revisa el servidor.')
         }
     };
 
