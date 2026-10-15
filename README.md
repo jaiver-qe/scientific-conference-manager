@@ -74,25 +74,42 @@ Este comando instalará las dependencias necesarias para el backend desarrollado
 
 1. En la **carpeta raíz** del proyecto (donde está `manage.py`), busca el archivo `.env.example`.
 2. Crea una copia y nómbrala exactamente `.env` (con el punto al inicio y sin extensión adicional).
-3. Abre el `.env` y configura la variable `DATABASE_URL` con las credenciales de Supabase.
+3. Abre el `.env` y configura las siguientes variables.
 
 Ejemplo del contenido del `.env`:
 
 ```
 DATABASE_URL=postgresql://postgres.xxxxxxxxxxxx:TU_CONTRASEÑA@aws-0-us-east-1.pooler.supabase.com:6543/postgres
+SECRET_KEY='TU_CLAVE_SECRETA'
+DEBUG=True
+ALLOWED_HOSTS=127.0.0.1,localhost
 ```
 
-Reemplaza `TU_CONTRASEÑA` por la credencial proporcionada por el grupo. Si es necesario, solicita la variable `DATABASE_URL` completa a través del canal privado del equipo.
+| Variable | Descripción |
+|---|---|
+| `DATABASE_URL` | Cadena de conexión a la base de datos de Supabase. Reemplaza `TU_CONTRASEÑA` por la credencial proporcionada por el grupo. Si es necesario, solicítala completa a través del canal privado del equipo. |
+| `SECRET_KEY` | Clave con la que Django firma sesiones y tokens JWT. **Es obligatoria**: sin ella Django no arranca. Cada desarrollador debe generar la suya (ver abajo). |
+| `DEBUG` | Usa `True` solo en desarrollo local. Si no se define, el valor por defecto es `False`. Nunca lo dejes en `True` en producción. |
+| `ALLOWED_HOSTS` | Dominios desde los que se aceptan peticiones, separados por coma y sin espacios. Para desarrollo local: `127.0.0.1,localhost`. |
+
+**Generar una `SECRET_KEY`:** con el entorno virtual activado, ejecuta:
+
+```bash
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+
+Copia el resultado en el `.env` entre **comillas simples**, porque la clave suele contener caracteres especiales (`#`, `$`, `%`) que se interpretarían mal sin ellas. No reutilices una clave que haya sido publicada o compartida en un chat.
 
 **Ten en cuenta:**
 
-- La línea debe empezar con `DATABASE_URL=`, sin espacios alrededor del `=` y sin comillas.
+- Cada línea debe tener el formato `NOMBRE=valor`, sin espacios alrededor del `=`. En `DATABASE_URL` no uses comillas.
 - Si la contraseña contiene caracteres especiales (`@`, `#`, `/`, `:`, `%`), deben codificarse en formato URL (por ejemplo, `@` → `%40`, `#` → `%23`).
 - En Windows, verifica que el archivo no quedó guardado como `.env.txt` (activa la opción "Extensiones de nombre de archivo" en el Explorador).
 - Guarda el archivo con codificación **UTF-8**.
 - Cada vez que modifiques el `.env`, reinicia el servidor de Django.
 
 **Importante:** No compartas las credenciales ni subas el archivo `.env` al repositorio.
+
 
 ### 5. Ejecutar las migraciones de la base de datos
 
