@@ -1,7 +1,10 @@
-import React, {useState} from 'react'; // useState, funcion de react que nos permite almacenar y actualizar variables dentro del mismo componente.
+import { useState } from 'react'; // useState: hook de React para almacenar y actualizar variables de estado dentro del componente.
 import './LoginFormEstilo.css'
 
 // Declaramos usando const para variables cuyo valor asignado no se puede reasignar una vez que se les ha dado un valor por primera vez
+
+// URL base del backend desde las variables de entorno de Vite (.env)
+const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
 export const LoginForm = () => { // Exporta el componente para poder importarlo y mostrarlo en App.jsx
     const [credenciales, setCredenciales] = useState ({nombreUsuario: '', contrasena: ''}); // Credential: Objeto que guarda los dos campos necesarios para la API de inicio de sesion, usuario y contrasena, se inicializan como cadenas vacias.
@@ -15,13 +18,14 @@ export const LoginForm = () => { // Exporta el componente para poder importarlo 
         });
     };
 
+
     // Funcion para enviar los datos a Django 
     const handleSubmit = async (evento) => {
         evento.preventDefault(); // Cancela el comportamiendo por defecto de HTML, evita que la pagina se recargue totalmente
         setMensaje('');
 
         try{
-            const respuestaServidor = await fetch('http://127.0.0.1:8000/api/login/', { // Fetch envia la solicitud con el metodo POST y la cabecera Content-type: application/json, indicando que el objeto credentialsse envia codificado en formato json.
+            const respuestaServidor = await fetch(`${API_URL}/api/login/`, { // Fetch envia la solicitud con el metodo POST y la cabecera Content-type: application/json, indicando que el objeto credentialsse envia codificado en formato json.
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,9 +61,8 @@ export const LoginForm = () => { // Exporta el componente para poder importarlo 
             }
 
             //endUpdate
-        } catch (err){
-            //console.err('Error al conectar con el backend: ', err)
-            setMensaje('¡Error de conexión con el servidor backend! Revisa el servidor.')
+        } catch {
+            setMensaje('¡Error de conexión con el servidor backend! Revisa el servidor.');
         }
     };
 
